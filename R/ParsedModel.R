@@ -9,6 +9,7 @@ new_ParsedModel <- function(params,preds,mFormula,kFormula){
     preds=preds,
     mFormula=mFormula,
     kFormula=kFormula),
+    family=family,
   class='ParsedModel'
   )
 }

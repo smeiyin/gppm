@@ -9,7 +9,11 @@ validate_toStan <- function(parsedModel,myData){
 toStan <-function(parsedModel,control){
   validate_toStan(parsedModel)
 
-  templateLocation <- file.path(system.file(package = 'gppm'),'stanTemplate.stan')
+  if(attributes(parsedModel)$family == "binomial"){
+    templateLocation <- file.path(system.file(package = 'gppm'),'stanTemplate.stan')
+  }else{
+    templateLocation <- file.path(system.file(package = 'gppm'),'stanTemplate2.stan')
+  }
   theTemplate <- readChar(templateLocation, file.info(templateLocation)$size)
 
   theCode <- theTemplate;
