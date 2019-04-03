@@ -1,4 +1,4 @@
-new_GPPM <- function(mFormula,cFormula,myData,control){
+new_GPPM <- function(mFormula,cFormula,myData,control, family){
   stopifnot(is.character(mFormula))
   stopifnot(is.character(cFormula))
   stopifnot(is.data.frame(myData))
