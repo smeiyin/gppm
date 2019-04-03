@@ -4,7 +4,7 @@ data{
   int<lower=1> maxTime;
   int<lower=1> nPreds;
   matrix[maxTime,nPreds] X[nPer];
-  int Y[nPer,maxTime];
+  int Y[maxTime];
   vector[nPer] L[maxTime];
 }
 
@@ -33,6 +33,6 @@ transformed parameters{
 model{
   for (i in 1:nPer){
     L[nTime[i]] ~  multi_normal_cholesky(mu[i,1:nTime[i]], cholSigma[i,1:nTime[i],1:nTime[i]]);
-    Y ~ bernoulli_logit(L[nTime[i]]);
+    Y[i] ~ bernoulli_logit(L[nTime[i]]);
   }
 }
