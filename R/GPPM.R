@@ -9,6 +9,7 @@ new_GPPM <- function(mFormula,cFormula,myData,control, family){
     cFormula=cFormula, #formula for the covariance
     data=myData,       #data must be a data frame
     control=control,    #list of controls
+    family=family,
     parsedModel=NA,    #model in a parsed format
     dataForStan=NA,    #data as used for stan
     stanModel=NA,      #generated stan Model
