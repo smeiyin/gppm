@@ -5,9 +5,11 @@ data{
   int<lower=1> nPreds;
   matrix[maxTime,nPreds] X[nPer];
   matrix[nPer,maxTime] Y;
+  matrix[nPer, maxTime] L;
 }
 
 parameters{
+  real a;
   <parameters>
 }
 
@@ -26,12 +28,13 @@ transformed parameters{
 		print(Sigma[1,1:nTime[i],1:nTime[i]]);
 	}
     cholSigma[i,1:nTime[i],1:nTime[i]] = cholesky_decompose(Sigma[i,1:nTime[i],1:nTime[i]]);
-    f[i, ]
   }
 }
 
 model{
   for (i in 1:nPer){
-    Y[i,1:nTime[i]] ~  multi_normal_cholesky(mu[i,1:nTime[i]], cholSigma[i,1:nTime[i],1:nTime[i]]);
+    a ~ std_normal();
+    L[i,1:nTime[i]] ~  multi_normal_cholesky(mu[i,1:nTime[i]], cholSigma[i,1:nTime[i],1:nTime[i]]);
+    Y ~ bernoulli_logit(a + L);
   }
 }
