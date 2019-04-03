@@ -4,8 +4,8 @@ data{
   int<lower=1> maxTime;
   int<lower=1> nPreds;
   matrix[maxTime,nPreds] X[nPer];
-  int [nPer, maxTime] Y;
-  int [nPer, maxTime] L;
+  int Y[nPer, maxTime];
+  int L[nPer, maxTime];
 }
 
 parameters{
