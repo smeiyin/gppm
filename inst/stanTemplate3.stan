@@ -4,7 +4,7 @@ data{
   int<lower=1> maxTime;
   int<lower=1> nPreds;
   matrix[maxTime,nPreds] X[nPer];
-  int[nPer] Y[maxTime];
+  int Y[nPer,maxTime];
   real L[nPer,maxTime];
 }
 
