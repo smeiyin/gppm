@@ -35,6 +35,6 @@ model{
   for (i in 1:nPer){
     a ~ std_normal();
     L[i,1:nTime[i]] ~  multi_normal_cholesky(mu[i,1:nTime[i]], cholSigma[i,1:nTime[i],1:nTime[i]]);
-    Y ~ bernoulli(inv_logit(a + L));
+    Y ~ binomial_logit(a + L);
   }
 }
