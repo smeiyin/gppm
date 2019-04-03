@@ -5,7 +5,7 @@ data{
   int<lower=1> nPreds;
   matrix[maxTime,nPreds] X[nPer];
   int Y[nPer,maxTime];
-  real L[nPer,maxTime];
+  vector L[nPer,maxTime];
 }
 
 parameters{
