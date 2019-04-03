@@ -9,7 +9,6 @@ data{
 }
 
 parameters{
-  real a;
   <parameters>
 }
 
@@ -33,8 +32,7 @@ transformed parameters{
 
 model{
   for (i in 1:nPer){
-    a ~ std_normal();
     L[i,1:nTime[i]] ~  multi_normal_cholesky(mu[i,1:nTime[i]], cholSigma[i,1:nTime[i],1:nTime[i]]);
-    Y ~ bernoulli_logit(a + L);
+    Y ~ bernoulli_logit(L);
   }
 }
