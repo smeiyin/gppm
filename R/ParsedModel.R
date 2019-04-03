@@ -1,4 +1,4 @@
-new_ParsedModel <- function(params,preds,mFormula,kFormula){
+new_ParsedModel <- function(params,preds,mFormula,kFormula, family){
   stopifnot(is.character(params)) # character vector of parameters
   stopifnot(is.character(preds)) # character vector of predictors
   stopifnot(is.character(mFormula)&&length(mFormula)==1) #string containing the mean function
@@ -118,11 +118,11 @@ parseFormula <- function(myFormula,myData){
   list(params=paramsPreds$params,preds=paramsPreds$preds,newFormula=newFormula)
 }
 
-parseModel <- function(mFormula,kFormula,myData){
+parseModel <- function(mFormula,kFormula,myData, family){
   validate_parseModel(mFormula,kFormula,myData)
   meanRes <- parseFormula(mFormula,myData)
   covRes <- parseFormula(kFormula,myData)
   allParams <- union(meanRes$params,covRes$params)
   allPreds <- union(meanRes$preds,covRes$preds)
-  new_ParsedModel(allParams,allPreds,meanRes$newFormula,covRes$newFormula)
+  new_ParsedModel(allParams,allPreds,meanRes$newFormula,covRes$newFormula, family)
 }
