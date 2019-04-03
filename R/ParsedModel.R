@@ -117,7 +117,7 @@ parseFormula <- function(myFormula,myData){
   list(params=paramsPreds$params,preds=paramsPreds$preds,newFormula=newFormula)
 }
 
-parseModel <- function(mFormula,kFormula,myData, family){
+parseModel <- function(mFormula,kFormula,myData){
   validate_parseModel(mFormula,kFormula,myData)
   meanRes <- parseFormula(mFormula,myData)
   covRes <- parseFormula(kFormula,myData)
