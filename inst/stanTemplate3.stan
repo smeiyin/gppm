@@ -4,8 +4,8 @@ data{
   int<lower=1> maxTime;
   int<lower=1> nPreds;
   matrix[maxTime,nPreds] X[nPer];
-  vector[nPer] Y[maxTime];
-  vector[nPer] L[maxTime];
+  int[nPer] Y[maxTime];
+  real L[nPer,maxTime];
 }
 
 parameters{
