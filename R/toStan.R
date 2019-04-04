@@ -10,7 +10,7 @@ toStan <-function(parsedModel,control){
   validate_toStan(parsedModel)
 
 
-  templateLocation <- file.path(system.file(package = 'gppm'),'stanTemplate.stan')
+  templateLocation <- file.path(system.file(package = 'gppm'),'stanTemplate3.stan')
 
   theTemplate <- readChar(templateLocation, file.info(templateLocation)$size)
 
