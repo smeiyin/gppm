@@ -1,4 +1,4 @@
-new_GPPM <- function(mFormula,cFormula,myData,control){
+new_GPPM <- function(mFormula,cFormula,myData,control, family){
   stopifnot(is.character(mFormula))
   stopifnot(is.character(cFormula))
   stopifnot(is.data.frame(myData))
@@ -9,6 +9,7 @@ new_GPPM <- function(mFormula,cFormula,myData,control){
     cFormula=cFormula, #formula for the covariance
     data=myData,       #data must be a data frame
     control=control,    #list of controls
+    family=family,     #family of distributions
     parsedModel=NA,    #model in a parsed format
     dataForStan=NA,    #data as used for stan
     stanModel=NA,      #generated stan Model
@@ -73,14 +74,14 @@ new_GPPM <- function(mFormula,cFormula,myData,control){
 #' @importFrom methods is
 #' @importFrom utils capture.output
 #' @export
-gppm <- function(mFormula,cFormula,myData,ID,DV,control=gppmControl()){
+gppm <- function(mFormula,cFormula,myData,ID,DV,control=gppmControl(), family){
   myData <- as_LongData(myData,ID,DV)
   validate_gppm(mFormula,cFormula,myData,control)
 
-  theModel <- new_GPPM(mFormula,cFormula,myData,control)
+  theModel <- new_GPPM(mFormula,cFormula,myData,control,family)
   theModel$dataForStan <- as_StanData(myData)
   theModel$parsedModel <- parseModel(theModel$mFormula,theModel$cFormula,
-                                     theModel$dataForStan)
+                                     theModel$dataForStan, theModel$family)
   theModel$stanModel <- toStan(theModel$parsedModel,control)
   return(theModel)
 }

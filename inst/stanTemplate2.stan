@@ -4,12 +4,16 @@ data{
   int<lower=1> maxTime;
   int<lower=1> nPreds;
   matrix[maxTime,nPreds] X[nPer];
-  matrix[nPer,maxTime] Y;
-  matrix[nPer, maxTime] L;
+
+  if(<family> == "binomial") {
+    matrix[nPer, maxTime] L;
+    int<lower=0,upper=1> Y[nPer,maxTime];
+  } else {
+    matrix[nPer,maxTime] Y;
+  }
 }
 
 parameters{
-  real a;
   <parameters>
 }
 
@@ -33,8 +37,13 @@ transformed parameters{
 
 model{
   for (i in 1:nPer){
-    a ~ std_normal();
+
+    if (<family> == "binomial") {
     L[i,1:nTime[i]] ~  multi_normal_cholesky(mu[i,1:nTime[i]], cholSigma[i,1:nTime[i],1:nTime[i]]);
-    Y ~ binomial_logit(a + L);
+    Y[i,1:nTime[i]] ~ bernoulli_logit(L[i,1:nTime[i]]);
+    } else {
+      Y[i,1:nTime[i]] ~  multi_normal_cholesky(mu[i,1:nTime[i]], cholSigma[i,1:nTime[i],1:nTime[i]]);
+    }
+
   }
 }

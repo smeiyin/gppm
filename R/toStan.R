@@ -10,7 +10,7 @@ toStan <-function(parsedModel,control){
   validate_toStan(parsedModel)
 
 
-  templateLocation <- file.path(system.file(package = 'gppm'),'stanTemplate3.stan')
+  templateLocation <- file.path(system.file(package = 'gppm'),'stanTemplate2.stan')
 
   theTemplate <- readChar(templateLocation, file.info(templateLocation)$size)
 
@@ -19,6 +19,7 @@ toStan <-function(parsedModel,control){
   theCode <- gsub('<parameters>',paramSect,theCode)
   theCode <- gsub('<meanfunction>',parsedModel$mFormula,theCode)
   theCode <- gsub('<covfunction>',parsedModel$kFormula,theCode)
+  theCode <- gsub('<family>', parsedModel$family, theCode)
   if(control$stanModel){
     utils::capture.output(theModel <- rstan::stan_model(model_code = theCode,auto_write = TRUE))
   }else{
