@@ -4,13 +4,8 @@ data{
   int<lower=1> maxTime;
   int<lower=1> nPreds;
   matrix[maxTime,nPreds] X[nPer];
-
-  if("<family>" == "binomial") {
-    matrix[nPer, maxTime] L;
-    int<lower=0,upper=1> Y[nPer,maxTime];
-  } else {
-    matrix[nPer,maxTime] Y;
-  }
+  int<lower=0,upper=1> Y[nPer,maxTime];
+  matrix[nPer,maxTime] Y;
 }
 
 parameters{
