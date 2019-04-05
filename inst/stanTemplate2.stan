@@ -5,7 +5,7 @@ data{
   int<lower=1> nPreds;
   matrix[maxTime,nPreds] X[nPer];
 
-  if(<family> == binomial) {
+  if("<family>" == "binomial") {
     matrix[nPer, maxTime] L;
     int<lower=0,upper=1> Y[nPer,maxTime];
   } else {
@@ -38,7 +38,7 @@ transformed parameters{
 model{
   for (i in 1:nPer){
 
-    if (<family> == binomial) {
+    if ("<family>" == "binomial") {
     L[i,1:nTime[i]] ~  multi_normal_cholesky(mu[i,1:nTime[i]], cholSigma[i,1:nTime[i],1:nTime[i]]);
     Y[i,1:nTime[i]] ~ bernoulli_logit(L[i,1:nTime[i]]);
     } else {
