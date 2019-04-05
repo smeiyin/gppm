@@ -4,7 +4,12 @@ data{
   int<lower=1> maxTime;
   int<lower=1> nPreds;
   matrix[maxTime,nPreds] X[nPer];
-  int<lower=0,upper=1> Y[nPer,maxTime];
+  matrix[nPer,maxTime] Y;
+}
+
+transformed data {
+  int<lower=0,upper=1> Yclass[nPer,maxTime];
+  Yclass = Y;
 }
 
 parameters{
@@ -35,7 +40,7 @@ model{
 
     if (<family> == 1) {
     L[i,1:nTime[i]] ~  multi_normal_cholesky(mu[i,1:nTime[i]], cholSigma[i,1:nTime[i],1:nTime[i]]);
-    Y[i,1:nTime[i]] ~ bernoulli_logit(L[i,1:nTime[i]]);
+    Yclass[i,1:nTime[i]] ~ bernoulli_logit(L[i,1:nTime[i]]);
     } else {
       Y[i,1:nTime[i]] ~  multi_normal_cholesky(mu[i,1:nTime[i]], cholSigma[i,1:nTime[i],1:nTime[i]]);
     }
