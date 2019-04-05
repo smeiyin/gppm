@@ -8,8 +8,8 @@ data{
 }
 
 transformed data {
-  int<lower=0,upper=1> Yclass[nPer,maxTime];
   Yclass = Y;
+  int<lower=0,upper=1> Yclass[nPer,maxTime];
 }
 
 parameters{
