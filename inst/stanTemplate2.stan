@@ -33,7 +33,7 @@ transformed parameters{
 model{
   for (i in 1:nPer){
 
-    if (<family> == binomial) {
+    if (<family> == 1) {
     L[i,1:nTime[i]] ~  multi_normal_cholesky(mu[i,1:nTime[i]], cholSigma[i,1:nTime[i],1:nTime[i]]);
     Yclass[i,1:nTime[i]] ~ bernoulli_logit(L[i,1:nTime[i]]);
     } else {
