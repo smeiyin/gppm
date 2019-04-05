@@ -31,6 +31,7 @@ transformed parameters{
 }
 
 model{
+  matrix[nPer,maxTime] L;
   for (i in 1:nPer){
 
     if (<family> == 1) {
