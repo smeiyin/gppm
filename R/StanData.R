@@ -1,6 +1,7 @@
 new_StanData <- function(X,Y,Yclass,nPer,nTime,maxTime,nPreds,IDs){
   stopifnot(is.list(X)) #X list of length nPer, contains maxTime x nPreds matrices
   stopifnot(is.list(Y)) #Y list of length nPer, contains maxTime vectors
+  stopifnot(is.list(Yclass)) #Yclass list of length nPer, contains maxTime vectors
   stopifnot(is.numeric(nPer) && length(nPer)==1) #number of persons scalar
   stopifnot(is.numeric(nTime)) #number of time points vector of legnth nPer
   stopifnot(is.numeric(maxTime) && length(maxTime)==1) #max number of time points scalar
@@ -23,6 +24,7 @@ new_StanData <- function(X,Y,Yclass,nPer,nTime,maxTime,nPreds,IDs){
 validate_StanData <- function(myStanData){
   stopifnot(length(myStanData$X)==myStanData$nPer)
   stopifnot(length(myStanData$Y)==myStanData$nPer)
+  stopifnot(length(myStanData$Yclass)==myStanData$nPer)
   stopifnot(identical(dim(myStanData$X[[1]]),as.integer(c(myStanData$maxTime,myStanData$nPreds))))
   stopifnot(identical(length(myStanData$Y[[1]]),as.integer(c(myStanData$maxTime))))
   myStanData
