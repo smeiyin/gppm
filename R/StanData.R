@@ -76,7 +76,7 @@ as_StanData.LongData <- function(myData, ...) {
     #core
     X[[personI]][timeI,] <- as.numeric(myData[i,xCols])
     Y[[personI]][timeI] <- as.numeric(myData[i,YField])
-    Yclass[[personI]][timeI] <- as.numeric(myData[i,YField])
+    Yclass[[personI]][timeI] <- as.integer(myData[i,YField])
 
     #update helper
     timeCounter[timeCounterIndex] <- timeCounter[timeCounterIndex]+1
