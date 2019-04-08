@@ -62,6 +62,6 @@ fit.GPPM <-  function(gpModel,init='random',useOptimizer=TRUE,verbose=FALSE,hess
     outf <- utils::capture.output
   }
   outf(gpModel$stanOut <- rstan::optimizing(gpModel$stanModel,gpModel$dataForStan,hessian = hessian,iter=iter,init=init,algorithm=algorithm,as_vector=FALSE))
-  gpModel$fitRes <- extractFitRes(gpModel$stanOut,gpModel$parsedModel,gpModel$dataForStan[c('nPer','nTime','maxTime','Y')])
+  gpModel$fitRes <- extractFitRes(gpModel$stanOut,gpModel$parsedModel,gpModel$dataForStan[c('nPer','nTime','maxTime','Y', 'Yclass')])
   gpModel
 }
