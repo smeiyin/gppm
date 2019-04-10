@@ -38,7 +38,9 @@ model{
 
     if (<family> == 1) {
     L[i,1:nTime[i]] ~  multi_normal_cholesky(mu[i,1:nTime[i]], cholSigma[i,1:nTime[i],1:nTime[i]]);
-    Yclass[i,1:nTime[i]] ~ bernoulli_logit(L[i,1:nTime[i]]);
+    for (j in 1:nTime[i]){
+      Yclass[i,j] ~ bernoulli_logit(L[i,j]);
+    }
     } else {
       Y[i,1:nTime[i]] ~  multi_normal_cholesky(mu[i,1:nTime[i]], cholSigma[i,1:nTime[i],1:nTime[i]]);
     }
