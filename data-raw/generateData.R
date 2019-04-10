@@ -15,17 +15,16 @@ for (i in 1:numberPersons){
     counter <- counter + 1
   }
 }
-# meanf <- 'muI+muS*t'
+meanf <- 'muI+muS*t'
 covf <- 'varI+covIS*(t+t#)+varS*t*t#+(t==t#)*sigma'
 lgcm <- gppm(meanf,covf,demoLGCM,'ID','y')
 trueParas <- c(58,-1,5,1,0, 0.01)
 names(trueParas) <-c('muI','muS','varI','varS','covIS','sigma')
 demoLGCM <- simulate(lgcm,parameterValues=trueParas)
 
-demoLGCMRed <- demoLGCM[1:20,]
-fixedIcep <- gppm('Icep','(t==t#)*sigma',demoLGCMRed,'ID','y')
-trueParasIcep <- c(0,5)
-names(trueParasIcep) <-c('Icep','sigma')
+fixedIcep <- gppm('Icep','IcepVar+(t==t#)*sigma',demoLGCM,'ID','y')
+trueParasIcep <- c(3,10,0.0001)
+names(trueParasIcep) <-c('Icep','IcepVar','sigma')
 demoBinary <- simulate(fixedIcep,parameterValues=trueParasIcep)
 logistic <- function(x){1/(1+exp(-x))}
 demoBinary$y <- logistic(demoBinary$y)
