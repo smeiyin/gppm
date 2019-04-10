@@ -18,6 +18,7 @@ transformed parameters{
   matrix[maxTime,maxTime] Sigma[nPer];
   matrix[maxTime,maxTime] cholSigma[nPer];
   for (i in 1:nPer){
+    print(i)
     for(j in 1:nTime[i]){
           mu[i,j] = <meanfunction>;
       for(k in 1:nTime[i]){

@@ -38,7 +38,7 @@ as_StanData <-  function(myData, ...) {
   UseMethod("as_StanData")
 }
 
-as_StanData.LongData <- function(myData, ...) {
+as_StanData.LongData <- function(myData, family, ...) {
   ##constants
   fakeData <- 10^100
 
@@ -62,7 +62,7 @@ as_StanData.LongData <- function(myData, ...) {
   colnames(xMatrices) <- xCols
   X <- rep(list(xMatrices),nPer)
   Y <- rep(list(rep(fakeData,maxTime)),nPer)
-  Yclass <- rep(list(rep(fakeData,maxTime)),nPer)
+  Yclass <- rep(list(rep(0,maxTime)),nPer)
   timeCounter <- rep(1,nPer)
   names(timeCounter) <- paste0('ID',uniqueIDs)
 
@@ -75,9 +75,11 @@ as_StanData.LongData <- function(myData, ...) {
 
     #core
     X[[personI]][timeI,] <- as.numeric(myData[i,xCols])
-    Y[[personI]][timeI] <- as.numeric(myData[i,YField])
-    Yclass[[personI]][timeI] <- as.integer(myData[i,YField])
-
+    if(family==0){
+      Y[[personI]][timeI] <- as.numeric(myData[i,YField])
+    }else{
+      Yclass[[personI]][timeI] <- as.integer(myData[i,YField])
+    }
     #update helper
     timeCounter[timeCounterIndex] <- timeCounter[timeCounterIndex]+1
   }
