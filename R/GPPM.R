@@ -105,8 +105,8 @@ updateData <- function(gpModel,newData){
 validate_gppm <- function(mFormula,cFormula,myData,control){
   ID <- attr(myData,'ID')
   DV <- attr(myData,'DV')
-  #stopifnot(!is.null(ID))
-  #stopifnot(!is.null(DV))
+  stopifnot(!is.null(ID))
+  stopifnot(!is.null(DV))
   #type checks
   if (!is.character(mFormula)){
     stop('mFormula must contain a string')

@@ -34,3 +34,4 @@ Other functions to extract from a GPPM: \code{\link{SE}},
   \code{\link{parEsts}}, \code{\link{pars}},
   \code{\link{preds}}, \code{\link{vcov.GPPM}}
 }
+\concept{functions to extract from a GPPM}

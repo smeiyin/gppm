@@ -4,7 +4,7 @@
 \alias{gppm}
 \title{Define a Gaussian process panel model}
 \usage{
-gppm(mFormula, cFormula, myData, ID, DV, control = gppmControl())
+gppm(mFormula, cFormula, myData, ID, DV, control = gppmControl(), family)
 }
 \arguments{
 \item{mFormula}{character string. Contains the specification of the mean function. See details for more information.}

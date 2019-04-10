@@ -19,6 +19,11 @@ toStan <-function(parsedModel,control){
   theCode <- gsub('<parameters>',paramSect,theCode)
   theCode <- gsub('<meanfunction>',parsedModel$mFormula,theCode)
   theCode <- gsub('<covfunction>',parsedModel$kFormula,theCode)
+  if(parsedModel$family=="binomial"){
+    parsedModel$family <- 1
+  }else{
+    parsedModel$family <- 0
+  }
   theCode <- gsub('<family>', parsedModel$family, theCode)
   if(control$stanModel){
     utils::capture.output(theModel <- rstan::stan_model(model_code = theCode,auto_write = TRUE))

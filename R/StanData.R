@@ -62,7 +62,7 @@ as_StanData.LongData <- function(myData, ...) {
   colnames(xMatrices) <- xCols
   X <- rep(list(xMatrices),nPer)
   Y <- rep(list(rep(fakeData,maxTime)),nPer)
-  Yclass <- rep(list(rep(fakeData,maxTime)),nPer)
+  Yclass <- rep(list(rep(0,maxTime)),nPer)
   timeCounter <- rep(1,nPer)
   names(timeCounter) <- paste0('ID',uniqueIDs)
 
