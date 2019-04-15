@@ -1,3 +1,5 @@
 data("demoBinary")
-fixedIcepFit <- gppm('Icep','sigma*(t==t#)',demoBinary,'ID','y',family = 1)
-fixedIcepFit <- fit(fixedIcepFit,verbose=TRUE)
+fixedIcepFit <- gppm('Icep','IcepVar^2',demoLGCM,'ID','y',family=1)
+startValues <- c(0,10)
+names(startValues) <- pars(fixedIcepFit)
+fixedIcepFit <- fit(fixedIcepFit,verbose=TRUE,init=startValues)

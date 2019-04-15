@@ -11,6 +11,7 @@ data{
 
 parameters{
   <parameters>
+  matrix[nPer,maxTime] L;
 }
 
 transformed parameters{
@@ -18,24 +19,26 @@ transformed parameters{
   matrix[maxTime,maxTime] Sigma[nPer];
   matrix[maxTime,maxTime] cholSigma[nPer];
   for (i in 1:nPer){
-    print(i)
     for(j in 1:nTime[i]){
           mu[i,j] = <meanfunction>;
       for(k in 1:nTime[i]){
         Sigma[i,j,k] = <covfunction>;
+        if (j==k){
+          Sigma[i,j,k] = Sigma[i,j,k]+0.0001;
+        }
       }
     }
 	if(i==1){
-		print(Sigma[1,1:nTime[i],1:nTime[i]]);
+	  print(Icep)
+	  print(IcepVar^2);
+		//print(Sigma[1,1:nTime[i],1:nTime[i]]);
 	}
     cholSigma[i,1:nTime[i],1:nTime[i]] = cholesky_decompose(Sigma[i,1:nTime[i],1:nTime[i]]);
   }
 }
 
 model{
-  matrix[nPer,maxTime] L;
   for (i in 1:nPer){
-
     if (<family> == 1) {
     L[i,1:nTime[i]] ~  multi_normal_cholesky(mu[i,1:nTime[i]], cholSigma[i,1:nTime[i],1:nTime[i]]);
     for (j in 1:nTime[i]){
