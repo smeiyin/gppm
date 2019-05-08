@@ -25,6 +25,12 @@ toStan <-function(parsedModel,control){
     parsedModel$family <- 0
   }
   theCode <- gsub('<family>', parsedModel$family, theCode)
+  if(parsedModel$link=="logit"){
+    parsedModel$link <- 1
+  }else{
+    parsedModel$link <- 0
+  }
+  theCode <- gsub('<link>', parsedModel$link, theCode)
   if(control$stanModel){
     utils::capture.output(theModel <- rstan::stan_model(model_code = theCode,auto_write = TRUE))
   }else{

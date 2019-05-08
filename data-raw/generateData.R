@@ -22,10 +22,15 @@ trueParas <- c(58,-1,5,1,0, 0.01)
 names(trueParas) <-c('muI','muS','varI','varS','covIS','sigma')
 demoLGCM <- simulate(lgcm,parameterValues=trueParas)
 
-fixedIcep <- gppm('Icep','IcepVar+(t==t#)*sigma',demoLGCM,'ID','y')
-trueParasIcep <- c(3,10,0.0001)
-names(trueParasIcep) <-c('Icep','IcepVar','sigma')
-demoBinary <- simulate(fixedIcep,parameterValues=trueParasIcep)
+# fixedIcep <- gppm('Icep','IcepVar+(t==t#)*sigma',demoLGCM,'ID','y')
+# trueParasIcep <- c(3,10,0.0001)
+# names(trueParasIcep) <-c('Icep','IcepVar','sigma')
+# demoBinary <- simulate(fixedIcep, parameterValues=trueParasIcep)
+
+trueParasBin <- c(58,-1,5,1,0, 0.01)
+names(trueParasBin) <-c('muI','muS','varI','varS','covIS','sigma')
+demoBinary <- simulate(lgcm, parameterValues=trueParasBin)
+
 logistic <- function(x){1/(1+exp(-x))}
 demoBinary$y <- logistic(demoBinary$y)
 for (i in 1:nrow(demoBinary)){
