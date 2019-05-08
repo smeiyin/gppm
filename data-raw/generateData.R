@@ -18,7 +18,7 @@ for (i in 1:numberPersons){
 meanf <- 'muI+muS*t'
 covf <- 'varI+covIS*(t+t#)+varS*t*t#+(t==t#)*sigma'
 lgcm <- gppm(meanf,covf,demoLGCM,'ID','y')
-trueParas <- c(58,-1,5,1,0, 0.01)
+trueParas <- c(3,-1.5,10,1,0, 0.01)
 names(trueParas) <-c('muI','muS','varI','varS','covIS','sigma')
 demoLGCM <- simulate(lgcm,parameterValues=trueParas)
 
@@ -27,8 +27,8 @@ demoLGCM <- simulate(lgcm,parameterValues=trueParas)
 # names(trueParasIcep) <-c('Icep','IcepVar','sigma')
 # demoBinary <- simulate(fixedIcep, parameterValues=trueParasIcep)
 
-trueParasBin <- c(58,-1,5,1,0, 0.01)
-names(trueParasBin) <-c('muI','muS','varI','varS','covIS','sigma')
+# trueParasBin <- c(3,-1.5,10,1,0, 0.01)
+# names(trueParasBin) <-c('muI','muS','varI','varS','covIS','sigma')
 demoBinary <- simulate(lgcm, parameterValues=trueParasBin)
 
 logistic <- function(x){1/(1+exp(-x))}
